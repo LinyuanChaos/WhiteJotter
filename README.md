@@ -4,6 +4,7 @@
 
 # 修改配置
   1.需要安装redis<br/>
+    https://blog.csdn.net/weixin_44893902/article/details/123087435<br/>
   2.wj/src/main/resources/application.properties 修改sql设置<br/>
   3.wj/pom.xml 识别maven<br/>
 
