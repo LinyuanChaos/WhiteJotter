@@ -11,3 +11,4 @@
   1.wj-vue 控制台输入npm run dev<br/>
   2.wj 运行WjApplication<br/>
   3.打开localhost:8080/index进入前台
+  4.进入后台需要登录，提供admin editor test三个身份，密码均为123
