@@ -28,7 +28,7 @@
         :visible.sync="dialogVisible"
         width="30%">
         <el-divider content-position="left">类别</el-divider>
-        <el-select v-model="value" ref="aType" placeholder="请选择文章类别" clearable="" @change="$forceUpdate()">
+        <el-select v-model="valueSelect" ref="aType" placeholder="请选择文章类别" clearable="" @change="$forceUpdate()">
           <el-option
             v-for="item in options"
             :key="item.value"
@@ -67,15 +67,16 @@ export default {
     return {
       article: {},
       dialogVisible: false,
+      valueSelect: '',
       options: [
         {
-          value: 'option1',
+          value: '类别一',
           label: '类别一'
         }, {
-          value: 'option2',
+          value: '类别二',
           label: '类别二'
         }, {
-          value: 'option3',
+          value: '类别三',
           label: '类别三'
         }
       ]
@@ -103,7 +104,7 @@ export default {
             articleAbstract: this.article.articleAbstract,
             articleCover: this.article.articleCover,
             articleDate: this.article.articleDate,
-            articleType: this.$refs.aType.value
+            articleType: this.valueSelect
           }).then(resp => {
             if (resp && resp.data.code === 200) {
               this.$message({
