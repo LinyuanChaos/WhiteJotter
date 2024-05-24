@@ -28,6 +28,7 @@ export default {
       var _this = this
       this.$axios.get('/article/' + this.$route.query.id).then(resp => {
         if (resp && resp.data.code === 200) {
+          console.log(resp.data.result)
           _this.article = resp.data.result
         }
       })

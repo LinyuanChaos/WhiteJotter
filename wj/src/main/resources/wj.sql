@@ -176,6 +176,30 @@ INSERT INTO `admin_user_role` VALUES (40,24,2),(63,8,2),(64,6,1),(67,7,3),(69,9,
 UNLOCK TABLES;
 
 --
+-- Table structure for table `article_category`
+--
+
+DROP TABLE IF EXISTS `article_category`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `article_category` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `article_category`
+--
+
+LOCK TABLES `article_category` WRITE;
+/*!40000 ALTER TABLE `article_category` DISABLE KEYS */;
+INSERT INTO `article_category` VALUES (1,'综测'),(2,'奖学金'),(3,'竞赛'),(4,'学术活动'),(5,'文体活动'),(6,'志愿活动'),(7,'其它');
+/*!40000 ALTER TABLE `article_category` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `book`
 --
 
@@ -193,7 +217,7 @@ CREATE TABLE `book` (
   `cid` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_book_category_on_cid` (`cid`),
-  CONSTRAINT `fk_book_category_on_cid` FOREIGN KEY (`cid`) REFERENCES `category` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
+  CONSTRAINT `fk_book_category_on_cid` FOREIGN KEY (`cid`) REFERENCES `book_category` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=103 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -208,13 +232,13 @@ INSERT INTO `book` VALUES (1,'https://i.loli.net/2019/04/10/5cadaa0d0759b.jpg','
 UNLOCK TABLES;
 
 --
--- Table structure for table `category`
+-- Table structure for table `book_category`
 --
 
-DROP TABLE IF EXISTS `category`;
+DROP TABLE IF EXISTS `book_category`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `category` (
+CREATE TABLE `book_category` (
   `id` int NOT NULL,
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
@@ -222,13 +246,13 @@ CREATE TABLE `category` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `category`
+-- Dumping data for table `book_category`
 --
 
-LOCK TABLES `category` WRITE;
-/*!40000 ALTER TABLE `category` DISABLE KEYS */;
-INSERT INTO `category` VALUES (1,'文学'),(2,'流行'),(3,'文化'),(4,'生活'),(5,'经管'),(6,'科技');
-/*!40000 ALTER TABLE `category` ENABLE KEYS */;
+LOCK TABLES `book_category` WRITE;
+/*!40000 ALTER TABLE `book_category` DISABLE KEYS */;
+INSERT INTO `book_category` VALUES (1,'文学'),(2,'流行'),(3,'文化'),(4,'生活'),(5,'经管'),(6,'科技');
+/*!40000 ALTER TABLE `book_category` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -245,10 +269,12 @@ CREATE TABLE `jotter_article` (
   `article_content_md` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
   `article_abstract` varchar(255) DEFAULT NULL,
   `article_cover` varchar(255) DEFAULT NULL,
-  `article_type` varchar(255) DEFAULT NULL,
+  `cid` int DEFAULT NULL,
   `article_date` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`id`),
+  KEY `jotter_article_article_category_id_fk` (`cid`),
+  CONSTRAINT `jotter_article_article_category_id_fk` FOREIGN KEY (`cid`) REFERENCES `article_category` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -257,7 +283,7 @@ CREATE TABLE `jotter_article` (
 
 LOCK TABLES `jotter_article` WRITE;
 /*!40000 ALTER TABLE `jotter_article` DISABLE KEYS */;
-INSERT INTO `jotter_article` VALUES (1,'凉风有兴','凉风有兴，秋月无边，而我思乡的情绪好比度日如年。虽然我风流倜傥玉树临风，但我还是有聪明的头脑和强健的臂腕。','凉风有兴，秋月无边，而我思乡的情绪好比度日如年。虽然我风流倜傥玉树临风，但我还是有聪明的头脑和强健的臂腕。','凉风有兴，秋月无边，而我思乡的情绪好比度日如年。','https://i.loli.net/2020/01/16/d2ZlKI1WRE4p7XB.png','其它一','2020-01-13 21:14:27'),(2,'爱你一万年','<p>曾经有份真挚的爱情摆在我的面前，我没有珍惜，等到失去的时候才后悔莫急，人世间最痛苦的事莫过余此，如果上天在给我一次机会，我会对那个女孩说我爱你，如果要在这份爱上加个期限，我希望是一万年。</p>\n','曾经有份真挚的爱情摆在我的面前，我没有珍惜，等到失去的时候才后悔莫急，人世间最痛苦的事莫过余此，如果上天在给我一次机会，我会对那个女孩说我爱你，如果要在这份爱上加个期限，我希望是一万年。','曾经有份真挚的爱情摆在我的面前，我没有珍惜，等到失去的时候才后悔莫及，人世间最痛苦的事莫过于此。','https://i.loli.net/2020/01/16/DdGBk1R3mj5er6v.png','其它二','2020-01-16 00:00:00');
+INSERT INTO `jotter_article` VALUES (1,'凉风有兴','凉风有兴，秋月无边，而我思乡的情绪好比度日如年。虽然我风流倜傥玉树临风，但我还是有聪明的头脑和强健的臂腕。','凉风有兴，秋月无边，而我思乡的情绪好比度日如年。虽然我风流倜傥玉树临风，但我还是有聪明的头脑和强健的臂腕。','凉风有兴，秋月无边，而我思乡的情绪好比度日如年。','https://i.loli.net/2020/01/16/d2ZlKI1WRE4p7XB.png',7,'2020-01-13 21:14:27'),(2,'爱你一万年','<p>曾经有份真挚的爱情摆在我的面前，我没有珍惜，等到失去的时候才后悔莫急，人世间最痛苦的事莫过余此，如果上天在给我一次机会，我会对那个女孩说我爱你，如果要在这份爱上加个期限，我希望是一万年。</p>\n','曾经有份真挚的爱情摆在我的面前，我没有珍惜，等到失去的时候才后悔莫急，人世间最痛苦的事莫过余此，如果上天在给我一次机会，我会对那个女孩说我爱你，如果要在这份爱上加个期限，我希望是一万年。','曾经有份真挚的爱情摆在我的面前，我没有珍惜，等到失去的时候才后悔莫及，人世间最痛苦的事莫过于此。','https://i.loli.net/2020/01/16/DdGBk1R3mj5er6v.png',7,'2020-01-16 00:00:00'),(14,'鸭兵奖学金','<h1><a id=\"_0\"></a>鸭兵奖学金开始发放</h1>\n<h2><a id=\"_1\"></a>参与条件</h2>\n<pre><code>1.参与者为珠海校区鸭兵\n2.。。。\n</code></pre>\n<h2><a id=\"_4\"></a>奖学金详情</h2>\n<pre><code>一等奖：5000\n二等奖：3000\n三等奖：1000\n参与奖：鸭兵证*1</code></pre>\n','# 鸭兵奖学金开始发放\n## 参与条件\n	1.参与者为珠海校区鸭兵\n	2.。。。\n## 奖学金详情\n	一等奖：5000\n	二等奖：3000\n	三等奖：1000\n	参与奖：鸭兵证*1','鸭兵奖学金发放中，珠海校区鸭兵即刻出征！扣1就送鸭兵证！',NULL,2,NULL),(15,'111222','<p>111222</p>\n','111222','111222',NULL,1,NULL);
 /*!40000 ALTER TABLE `jotter_article` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -300,4 +326,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-21 13:06:21
+-- Dump completed on 2024-05-24 23:19:41

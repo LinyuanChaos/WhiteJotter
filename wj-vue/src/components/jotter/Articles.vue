@@ -2,20 +2,28 @@
   <div style="margin-top: 40px">
     <!--<el-button @click="addArticle()">添加文章</el-button>-->
     <div class="articles-area">
-      <el-card style="text-align: left">
-        <div v-for="article in articles" :key="article.id">
-          <div style="float:left;width:85%;height: 150px;">
-            <router-link class="article-link" :to="{path:'jotter/article',query:{id: article.id}}"><span style="font-size: 20px"><strong>{{article.articleTitle}}</strong></span></router-link>
-            <el-divider content-position="left">{{article.articleDate}}</el-divider>
-            <router-link class="article-link" :to="{path:'jotter/article',query:{id: article.id}}"><p>{{article.articleAbstract}}</p></router-link>
-          </div>
-          <el-image
-            style="margin:18px 0 0 30px;width:100px;height: 100px"
-            :src="article.articleCover"
-            fit="cover"></el-image>
-          <el-divider></el-divider>
-        </div>
-      </el-card>
+      <el-container>
+        <el-aside style="width: 200px;margin-top: 20px">
+          <switch></switch>
+          <SideMenu @indexSelect="listByCategory" ref="sideMenu"></SideMenu>
+        </el-aside>
+        <el-main>
+          <el-card style="text-align: left;width: 95%">
+            <div v-for="article in articles" :key="article.id">
+              <div style="float:left;width:80%;height: 150px;">
+                <router-link class="article-link" :to="{path:'jotter/article',query:{id: article.id}}"><span style="font-size: 20px"><strong>{{article.articleTitle}}</strong></span></router-link>
+                <el-divider content-position="left">{{article.articleDate}}</el-divider>
+                <router-link class="article-link" :to="{path:'jotter/article',query:{id: article.id}}"><p>{{article.articleAbstract}}</p></router-link>
+              </div>
+              <el-image
+                style="margin:18px 0 0 30px;width:100px;height: 100px"
+                :src="article.articleCover"
+                fit="cover"></el-image>
+              <el-divider></el-divider>
+            </div>
+          </el-card>
+        </el-main>
+      </el-container>
     </div>
     <el-pagination
       background
@@ -29,13 +37,17 @@
 
 <script>
 
+import SideMenu from '../jotter/SideMenu.vue'
+
 export default {
   name: 'Articles',
+  components: {SideMenu},
   data () {
     return {
       articles: [],
       pageSize: 4,
-      total: 0
+      total: 0,
+      cid: 0
     }
   },
   mounted () {
@@ -53,8 +65,29 @@ export default {
     },
     handleCurrentChange (page) {
       var _this = this
-      this.$axios.get('/article/' + this.pageSize + '/' + page).then(resp => {
-        if (resp && resp.data.code === 200) {
+      if (this.cid === 0) {
+        this.$axios.get('/article/' + this.pageSize + '/' + page).then(resp => {
+          if (resp && resp.data.code === 200) {
+            _this.articles = resp.data.result.content
+            _this.total = resp.data.result.totalElements
+          }
+        })
+      } else {
+        var url = 'categories/' + this.cid + '/article/' + this.pageSize + '/' + page
+        this.$axios.get(url).then(resp => {
+          if (resp && resp.status === 200) {
+            _this.articles = resp.data.result.content
+            _this.total = resp.data.result.totalElements
+          }
+        })
+      }
+    },
+    listByCategory () {
+      var _this = this
+      var cid = this.$refs.sideMenu.cid
+      var url = 'categories/' + cid + '/article/' + this.pageSize + '/1'
+      this.$axios.get(url).then(resp => {
+        if (resp && resp.status === 200) {
           _this.articles = resp.data.result.content
           _this.total = resp.data.result.totalElements
         }

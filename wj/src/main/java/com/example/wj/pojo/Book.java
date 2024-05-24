@@ -14,7 +14,7 @@ public class Book {
 
     @ManyToOne
     @JoinColumn(name="cid")
-    private Category category;
+    private BookCategory bookCategory;
 
     String cover;
     String title;
@@ -23,12 +23,12 @@ public class Book {
     String press;
     String abs;
 
-    public Category getCategory() {
-        return category;
+    public BookCategory getBookCategory() {
+        return bookCategory;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setBookCategory(BookCategory bookCategory) {
+        this.bookCategory = bookCategory;
     }
 
     public String getDate() {

@@ -1,6 +1,9 @@
 package com.example.wj.service;
 
 import com.example.wj.dao.JotterArticleDAO;
+import com.example.wj.pojo.ArticleCategory;
+import com.example.wj.pojo.Book;
+import com.example.wj.pojo.BookCategory;
 import com.example.wj.pojo.JotterArticle;
 import com.example.wj.redis.RedisService;
 import com.example.wj.util.MyPage;
@@ -10,6 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -18,6 +22,8 @@ public class JotterArticleService {
     JotterArticleDAO jotterArticleDAO;
     @Autowired
     RedisService redisService;
+    @Autowired
+    ArticleCategoryService articleCategoryService;
 
     public MyPage list(int page, int size) {
         MyPage<JotterArticle> articles;
@@ -47,6 +53,23 @@ public class JotterArticleService {
             article = (JotterArticle) articleCache;
         }
         return article;
+    }
+
+    public MyPage listByCategory(int cid, int page, int size) {
+        MyPage<JotterArticle> articles;
+        String key = "articlepage:" + page + "cid:" + cid;
+        Object articlePageCache = redisService.get(key);
+        ArticleCategory articleCategory = articleCategoryService.get(cid);
+
+        if (articlePageCache == null) {
+            Sort sort = Sort.by(Sort.Direction.DESC, "id");
+            Page<JotterArticle> articlesInDb = jotterArticleDAO.findAllByArticleCategory(articleCategory, PageRequest.of(page, size, sort));
+            articles = new MyPage<>(articlesInDb);
+            redisService.set(key, articles);
+        } else {
+            articles = (MyPage<JotterArticle>) articlePageCache;
+        }
+        return articles;
     }
 
     public void addOrUpdate(JotterArticle article) {

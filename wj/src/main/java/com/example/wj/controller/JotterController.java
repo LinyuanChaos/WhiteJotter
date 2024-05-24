@@ -36,6 +36,17 @@ public class JotterController {
     }
 
     @CrossOrigin
+    @GetMapping("/api/categories/{cid}/article/{size}/{page}")
+    @ResponseBody
+    public Result listByCategory(@PathVariable("cid") int cid, @PathVariable("size") int size, @PathVariable("page") int page) {
+        if (0 != cid) {
+            return ResultFactory.buildSuccessResult(jotterArticleService.listByCategory(cid, page - 1, size));
+        } else {
+            return ResultFactory.buildSuccessResult(jotterArticleService.list(page - 1, size));
+        }
+    }
+
+    @CrossOrigin
     @DeleteMapping("/api/admin/content/article/{id}")
     @ResponseBody
     public Result deleteArticle(@PathVariable("id") int id) {

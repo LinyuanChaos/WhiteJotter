@@ -3,7 +3,7 @@
     <el-row style="height: 840px;">
       <search-bar @onSearch="searchResult" ref="searchBar"></search-bar>
       <el-tooltip effect="dark" placement="right"
-                  v-for="item in books.slice((currentPage-1)*pagesize,currentPage*pagesize)"
+                  v-for="item in books.slice((currentPage-1)*pageSize,currentPage*pageSize)"
                   :key="item.id">
         <p slot="content" style="font-size: 14px;margin-bottom: 6px;">{{item.title}}</p>
         <p slot="content" style="font-size: 13px;margin-bottom: 6px">
@@ -30,7 +30,7 @@
       <el-pagination
         @current-change="handleCurrentChange"
         :current-page="currentPage"
-        :page-size="pagesize"
+        :page-size="pageSize"
         :total="books.length">
       </el-pagination>
     </el-row>
@@ -46,7 +46,7 @@ export default {
     return {
       books: [],
       currentPage: 1,
-      pagesize: 17
+      pageSize: 17
     }
   },
   mounted: function () {

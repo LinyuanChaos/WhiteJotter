@@ -69,7 +69,7 @@ public class LibraryController {
     @PostMapping("/api/admin/content/books/covers")
     @ResponseBody
     public String coversUpload(MultipartFile file) {
-        String folder = "D:/WhiteJotter/wj-vue/src/assets/book_cover";
+        String folder = "D:/WhiteJotter/wj-vue/src/assets/img/cover";
         File imageFolder = new File(folder);
         File f = new File(imageFolder, StringUtils.getRandomString(6) + file.getOriginalFilename()
                 .substring(file.getOriginalFilename().length() - 4));
