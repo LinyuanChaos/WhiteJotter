@@ -75,7 +75,7 @@ public class JotterArticleService {
     public void addOrUpdate(JotterArticle article) {
         jotterArticleDAO.save(article);
 
-        redisService.delete("article" + article.getId());
+        redisService.delete("article:" + article.getId());
         Set<String> keys = redisService.getKeysByPattern("articlepage*");
         redisService.delete(keys);
     }

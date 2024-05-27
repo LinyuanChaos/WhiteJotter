@@ -25,14 +25,13 @@ public class JotterArticle {
     private Date articleDate;
     @ManyToOne
     @JoinColumn(name="cid")
-    @NotEmpty(message = "文章类别不能为空")
     private ArticleCategory articleCategory;
 
-    public @NotEmpty(message = "文章类别不能为空") ArticleCategory getArticleCategory() {
+    public ArticleCategory getArticleCategory() {
         return articleCategory;
     }
 
-    public void setArticleCategory(@NotEmpty(message = "文章类别不能为空") ArticleCategory articleCategory) {
+    public void setArticleCategory(ArticleCategory articleCategory) {
         this.articleCategory = articleCategory;
     }
 

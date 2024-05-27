@@ -28,13 +28,14 @@
         :visible.sync="dialogVisible"
         width="30%">
         <el-divider content-position="left">类别</el-divider>
-        <el-select v-model="article.category" ref="aType" placeholder="请选择文章类别" clearable="" @change="$forceUpdate()">
-          <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value">
-          </el-option>
+        <el-select v-model="article.articleCategory.id" placeholder="请选择文章类别" clearable="" @change="$forceUpdate()">
+          <el-option label="综测" value="1"></el-option>
+          <el-option label="奖学金" value="2"></el-option>
+          <el-option label="竞赛" value="3"></el-option>
+          <el-option label="学术活动" value="4"></el-option>
+          <el-option label="文体活动" value="5"></el-option>
+          <el-option label="志愿活动" value="6"></el-option>
+          <el-option label="其它" value="7"></el-option>
         </el-select>
         <el-divider content-position="left">摘要</el-divider>
         <el-input
@@ -65,39 +66,19 @@ export default {
   components: {ImgUpload},
   data () {
     return {
-      article: {},
-      dialogVisible: false,
-      valueSelect: '',
-      options: [
-        {
-          value: '1',
-          label: '综测'
-        },
-        {
-          value: '2',
-          label: '奖学金'
-        },
-        {
-          value: '3',
-          label: '竞赛'
-        },
-        {
-          value: '4',
-          label: '学术活动'
-        },
-        {
-          value: '5',
-          label: '文体活动'
-        },
-        {
-          value: '6',
-          label: '志愿活动'
-        },
-        {
-          value: '7',
-          label: '其它'
+      article: {
+        articleId: '',
+        articleTitle: '',
+        articleAbstract: '',
+        articleCover: '',
+        articleDate: '',
+        articleCategory: {
+          id: '',
+          name: ''
         }
-      ]
+      },
+      dialogVisible: false,
+      valueSelect: ''
     }
   },
   mounted () {
@@ -113,6 +94,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
+        console.log(this.article)
         this.$axios
           .post('/admin/content/article', {
             id: this.article.id,
@@ -122,7 +104,7 @@ export default {
             articleAbstract: this.article.articleAbstract,
             articleCover: this.article.articleCover,
             articleDate: this.article.articleDate,
-            cid: this.article.category
+            articleCategory: this.article.articleCategory
           }).then(resp => {
             if (resp && resp.data.code === 200) {
               this.$message({

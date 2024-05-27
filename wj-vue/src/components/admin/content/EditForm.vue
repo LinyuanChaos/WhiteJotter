@@ -27,12 +27,12 @@
         </el-form-item>
         <el-form-item label="分类" :label-width="formLabelWidth" prop="cid">
           <el-select v-model="form.category.id" placeholder="请选择分类">
-            <el-option label="文学" value="1"></el-option>
-            <el-option label="流行" value="2"></el-option>
-            <el-option label="文化" value="3"></el-option>
-            <el-option label="生活" value="4"></el-option>
-            <el-option label="经管" value="5"></el-option>
-            <el-option label="科技" value="6"></el-option>
+            <el-option label="文学" value=1></el-option>
+            <el-option label="流行" value=2></el-option>
+            <el-option label="文化" value=3></el-option>
+            <el-option label="生活" value=4></el-option>
+            <el-option label="经管" value=5></el-option>
+            <el-option label="科技" value=6></el-option>
           </el-select>
         </el-form-item>
         <el-form-item prop="id" style="height: 0">
