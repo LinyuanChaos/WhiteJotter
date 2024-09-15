@@ -4,6 +4,7 @@
     <el-dialog
       title="添加用户"
       :visible.sync="dialogFormVisible"
+      :append-to-body='true'
       @close="clear"
       width="25%">
       <el-form :model="loginForm" :rules="rules" label-position="left"

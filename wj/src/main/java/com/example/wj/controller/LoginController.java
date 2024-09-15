@@ -6,6 +6,8 @@ import com.example.wj.service.UserService;
 import com.example.wj.pojo.User;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +28,15 @@ public class LoginController {
         usernamePasswordToken.setRememberMe(true);
         try {
             subject.login(usernamePasswordToken);
+            User user = userService.getByName(username);
+            if (!user.isEnabled()) {
+                return ResultFactory.buildFailResult("该用户已被禁用");
+            }
             return ResultFactory.buildSuccessResult(username);
-        } catch (AuthenticationException e) {
-            String message = "账号密码错误";
-            return ResultFactory.buildFailResult(message);
+        } catch (IncorrectCredentialsException e) {
+            return ResultFactory.buildFailResult("密码错误");
+        } catch (UnknownAccountException e) {
+            return ResultFactory.buildFailResult("账号不存在");
         }
     }
 

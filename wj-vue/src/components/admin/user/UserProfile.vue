@@ -2,7 +2,8 @@
   <div>
     <el-dialog
       title="修改用户信息"
-      :visible.sync="dialogFormVisible">
+      :visible.sync="dialogFormVisible"
+      :append-to-body='true'>
       <el-form v-model="selectedUser" style="text-align: left" ref="dataForm">
         <el-form-item label="用户名" label-width="120px" prop="username">
           <label>{{selectedUser.username}}</label>
@@ -31,11 +32,13 @@
       </div>
     </el-dialog>
     <el-row style="margin: 18px 0px 0px 18px ">
-      <el-breadcrumb separator-class="el-icon-arrow-right">
-        <el-breadcrumb-item :to="{ path: '/admin/dashboard' }">管理中心</el-breadcrumb-item>
-        <el-breadcrumb-item>用户管理</el-breadcrumb-item>
-        <el-breadcrumb-item>用户信息</el-breadcrumb-item>
-      </el-breadcrumb>
+      <el-card class="box-card" style="background-color: rgba(255,255,255,0.8); width: 97%; height: 50px;">
+        <el-breadcrumb separator-class="el-icon-arrow-right">
+          <el-breadcrumb-item :to="{ path: '/admin/dashboard' }">管理中心</el-breadcrumb-item>
+          <el-breadcrumb-item>用户管理</el-breadcrumb-item>
+          <el-breadcrumb-item>用户信息</el-breadcrumb-item>
+        </el-breadcrumb>
+      </el-card>
     </el-row>
     <bulk-registration @onSubmit="listUsers()"></bulk-registration>
     <el-card style="margin: 18px 2%;width: 95%">
@@ -135,7 +138,7 @@ export default {
   },
   computed: {
     tableHeight () {
-      return window.innerHeight - 320
+      return window.innerHeight - 370
     }
   },
   methods: {

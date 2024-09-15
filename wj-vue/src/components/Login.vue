@@ -11,11 +11,11 @@
                   auto-complete="off" placeholder="密码"></el-input>
       </el-form-item>
       <el-form-item style="width: 100%">
-        <el-button type="primary" style="width: 40%;background: #228b22;border: none" v-on:click="login">登录</el-button>
-        <router-link to="register"><el-button type="primary" style="width: 40%;background: #228b22;border: none">注册</el-button></router-link>
+        <el-button type="primary" style="width: 40%;background: #00BFFF;border: none" v-on:click="login">登录</el-button>
+        <router-link to="register"><el-button type="primary" style="width: 40%;background: #00BFFF;border: none">注册</el-button></router-link>
       </el-form-item>
       <el-form-item>
-        <router-link to="index"><el-button type="primary" style="width: 40%;background: #228b22;border: none">返回前台</el-button></router-link>
+        <router-link to="index"><el-button type="primary" style="width: 40%;background: #00BFFF;border: none">返回前台</el-button></router-link>
       </el-form-item>
     </el-form>
   </body>
@@ -62,7 +62,7 @@ export default {
 
 <style>
 #paper {
-  background: url("../assets/img/bg/hst_motto.jpg") no-repeat center;
+  background: url("../assets/img/bg/default_bg1.jpg") no-repeat center;
   height: 100%;
   width: 100%;
   background-size: cover;

@@ -1,16 +1,18 @@
 <template>
   <div>
     <el-row style="margin: 18px 0px 0px 18px ">
-      <el-breadcrumb separator-class="el-icon-arrow-right">
-        <el-breadcrumb-item :to="{ path: '/admin/dashboard' }">管理中心</el-breadcrumb-item>
-        <el-breadcrumb-item>内容管理</el-breadcrumb-item>
-        <el-breadcrumb-item>文章管理</el-breadcrumb-item>
-      </el-breadcrumb>
+      <el-card class="box-card" style="background-color: rgba(255,255,255,0.8); width: 97%; height: 50px;">
+        <el-breadcrumb separator-class="el-icon-arrow-right">
+          <el-breadcrumb-item :to="{ path: '/admin/dashboard' }">管理中心</el-breadcrumb-item>
+          <el-breadcrumb-item>内容管理</el-breadcrumb-item>
+          <el-breadcrumb-item>文章管理</el-breadcrumb-item>
+        </el-breadcrumb>
+      </el-card>
     </el-row>
     <el-link href="/admin/content/editor" :underline="false" target="_blank" class="add-link">
       <el-button type="success">写文章</el-button>
     </el-link>
-    <el-card style="margin: 18px 2%;width: 95%">
+    <el-card style="margin: 18px 2%; width: 95%">
       <el-table
         :data="articles"
         stripe
@@ -85,7 +87,7 @@ export default {
   data () {
     return {
       articles: [],
-      pageSize: 10,
+      pageSize: 4,
       total: 0
     }
   },
@@ -94,7 +96,7 @@ export default {
   },
   computed: {
     tableHeight () {
-      return window.innerHeight - 320
+      return window.innerHeight - 370
     }
   },
   methods: {

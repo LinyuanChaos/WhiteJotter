@@ -4,6 +4,7 @@
     <el-dialog
       title="添加角色"
       :visible.sync="dialogFormVisible"
+      :append-to-body='true'
       @close="clear"
       width="25%">
       <el-form :model="roleForm" :rules="rules" label-position="left"

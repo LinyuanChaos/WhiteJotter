@@ -46,7 +46,7 @@ export default {
     return {
       books: [],
       currentPage: 1,
-      pageSize: 17
+      pageSize: 18
     }
   },
   mounted: function () {

@@ -1,9 +1,9 @@
 <template>
   <el-card class="admin-header">
     <a href="/index">
-      <img src="../../assets/img/icon/sysu_logo.png" alt="" width="50px" style="float: left;margin-top: -5px">
+      <img src="../../assets/img/icon/cat.png" alt="" width="50px" style="float: left">
     </a>
-    <span style="font-size: 20px;font-weight: bold;position:absolute;left: 75px">学生管理平台后台</span>
+    <span style="font-size: 20px;font-weight: bold;position:absolute;left: 75px">WhiteJotter后台</span>
     <i class="el-icon-switch-button" v-on:click="logout" style="font-size: 40px;float: right"></i>
   </el-card>
 </template>

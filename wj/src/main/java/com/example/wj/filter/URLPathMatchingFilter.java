@@ -18,8 +18,6 @@ import java.util.Set;
 
 @Log4j2
 public class URLPathMatchingFilter extends PathMatchingFilter {
-
-    @Autowired
     AdminPermissionService adminPermissionService;
 
     @Override
@@ -58,7 +56,7 @@ public class URLPathMatchingFilter extends PathMatchingFilter {
             String username = subject.getPrincipal().toString();
             Set<String> permissionAPIs = adminPermissionService.listPermissionURLsByUser(username);
             for (String api : permissionAPIs) {
-                if (api.equals(requestAPI)) {
+                if (requestAPI.startsWith(api)) {
                     hasPermission = true;
                     break;
                 }

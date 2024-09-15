@@ -14,7 +14,7 @@ export default {
 
 <style scoped>
 .error-page {
-  background:url("../../assets/img/bg/tqzx.jpg") no-repeat, center;
+  background:url("../../assets/img/bg/default_bg1.jpg") no-repeat, center;
   margin: 0;
   height: 100%;
   width: 100%;

@@ -4,6 +4,7 @@
     <el-dialog
       title="添加/修改图书"
       :visible.sync="dialogFormVisible"
+      :append-to-body='true'
       @close="clear">
       <el-form v-model="form" style="text-align: left" ref="dataForm">
         <el-form-item label="书名" :label-width="formLabelWidth" prop="title">

@@ -10,7 +10,7 @@
     <body id="welcome">
       <el-card class="box-card" style="background-color: rgba(255,255,255,0.5); width: 1000px; height: 100px;">
        <div style="font-size: 42px">
-         Welcome to SSE 学生管理平台
+         Welcome to My_WhiteJotter!
        </div>
       </el-card>
     </body>
@@ -23,11 +23,11 @@ export default {
   data () {
     return {
       carouselImg: [
-        require('../../assets/img/bg/sys_south.jpg'),
-        require('../../assets/img/bg/hst_motto.jpg'),
-        require('../../assets/img/bg/tqzx.jpg'),
-        require('../../assets/img/bg/building_zh.jpg'),
-        require('../../assets/img/bg/lib_zh.jpg')
+        require('../../assets/img/bg/default_bg1.jpg'),
+        require('../../assets/img/bg/default_bg1.jpg'),
+        require('../../assets/img/bg/default_bg1.jpg'),
+        require('../../assets/img/bg/default_bg1.jpg'),
+        require('../../assets/img/bg/default_bg1.jpg')
       ],
       bannerHeight: 0,
       screenWidth: 0

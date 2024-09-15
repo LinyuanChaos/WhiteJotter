@@ -1,5 +1,6 @@
 package com.example.wj.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
@@ -22,6 +23,7 @@ public class JotterArticle {
     private String articleContentMd;
     private String articleAbstract;
     private String articleCover;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date articleDate;
     @ManyToOne
     @JoinColumn(name="cid")

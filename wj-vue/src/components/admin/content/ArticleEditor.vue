@@ -1,12 +1,14 @@
 <template>
   <div>
     <el-row style="margin: 18px 0px 0px 18px ">
-      <el-breadcrumb separator-class="el-icon-arrow-right">
-        <el-breadcrumb-item :to="{ path: '/admin/dashboard'}">管理中心</el-breadcrumb-item>
-        <el-breadcrumb-item :to="{ path: '/admin/content/book'}">内容管理</el-breadcrumb-item>
-        <el-breadcrumb-item :to="{ path: '/admin/content/article'}">文章管理</el-breadcrumb-item>
-        <el-breadcrumb-item>编辑器</el-breadcrumb-item>
-      </el-breadcrumb>
+      <el-card class="box-card" style="background-color: rgba(255,255,255,0.8); width: 97%; height: 50px;">
+        <el-breadcrumb separator-class="el-icon-arrow-right">
+          <el-breadcrumb-item :to="{ path: '/admin/dashboard'}">管理中心</el-breadcrumb-item>
+          <el-breadcrumb-item :to="{ path: '/admin/content/book'}">内容管理</el-breadcrumb-item>
+          <el-breadcrumb-item :to="{ path: '/admin/content/article'}">文章管理</el-breadcrumb-item>
+          <el-breadcrumb-item>编辑器</el-breadcrumb-item>
+        </el-breadcrumb>
+      </el-card>
     </el-row>
     <el-row>
       <el-input
@@ -26,6 +28,7 @@
       </mavon-editor>
       <el-dialog
         :visible.sync="dialogVisible"
+        :append-to-body='true'
         width="30%">
         <el-divider content-position="left">类别</el-divider>
         <el-select v-model="article.articleCategory.id" placeholder="请选择文章类别" clearable="" @change="$forceUpdate()">
@@ -94,6 +97,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
+        this.article.articleDate = new Date().getTime()
         console.log(this.article)
         this.$axios
           .post('/admin/content/article', {

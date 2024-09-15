@@ -4,7 +4,7 @@
     class="el-menu-admin"
     router
     mode="vertical"
-    background-color="#228b22"
+    background-color="#00BFFF"
     text-color="#fff"
     active-text-color="#ffd04b"
     :collapse="isCollapse">

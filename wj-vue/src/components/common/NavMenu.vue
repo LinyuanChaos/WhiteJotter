@@ -3,14 +3,14 @@
     :default-active="'/index'"
     router
     mode="horizontal"
-    background-color="#228b22"
+    background-color="#00BFFF"
     text-color="#fff"
     active-text-color="#ffd04b"
     style="min-width: 1300px">
     <el-menu-item v-for="(item,i) in navList" :key="i" :index="item.name">
       {{ item.navItem }}
     </el-menu-item>
-    <span style="position: absolute;padding-top: 20px;right: 45%;font-size: 20px;font-weight: bold;color: #fff">SSE 学生管理平台</span>
+    <span style="position: absolute;padding-top: 20px;right: 45%;font-size: 20px;font-weight: bold;color: #fff">My_WhiteJotter</span>
   </el-menu>
 </template>
 
