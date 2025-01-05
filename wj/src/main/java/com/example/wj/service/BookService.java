@@ -24,6 +24,10 @@ public class BookService {
         bookDAO.save(book);
     }
 
+    public boolean existsById(int id) {
+        return bookDAO.existsById(id);
+    }
+
     public void deleteById(int id) {
         bookDAO.deleteById(id);
     }
