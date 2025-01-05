@@ -2,8 +2,6 @@ package com.example.wj.service;
 
 import com.example.wj.dao.JotterArticleDAO;
 import com.example.wj.pojo.ArticleCategory;
-import com.example.wj.pojo.Book;
-import com.example.wj.pojo.BookCategory;
 import com.example.wj.pojo.JotterArticle;
 import com.example.wj.redis.RedisService;
 import com.example.wj.util.MyPage;
@@ -13,7 +11,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Set;
 
 @Service
@@ -27,7 +24,7 @@ public class JotterArticleService {
 
     public MyPage list(int page, int size) {
         MyPage<JotterArticle> articles;
-        String key = "articlepage:" + page;
+        String key = "articlepage:" + page + "pagesize:" + size;
         Object articlePageCache = redisService.get(key);
 
         if (articlePageCache == null) {
@@ -57,7 +54,7 @@ public class JotterArticleService {
 
     public MyPage listByCategory(int cid, int page, int size) {
         MyPage<JotterArticle> articles;
-        String key = "articlepage:" + page + "cid:" + cid;
+        String key = "articlepage:" + page + "pagesize:" + size + "cid:" + cid;
         Object articlePageCache = redisService.get(key);
         ArticleCategory articleCategory = articleCategoryService.get(cid);
 
@@ -80,7 +77,11 @@ public class JotterArticleService {
         redisService.delete(keys);
     }
 
-    public void delete(int id) {
+    public boolean existsById(int id) {
+        return jotterArticleDAO.existsById(id);
+    }
+
+    public void deleteById(int id) {
         jotterArticleDAO.deleteById(id);
 
         redisService.delete("article:" + id);

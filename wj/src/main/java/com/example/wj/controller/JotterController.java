@@ -50,7 +50,10 @@ public class JotterController {
     @DeleteMapping("/api/admin/content/article/{id}")
     @ResponseBody
     public Result deleteArticle(@PathVariable("id") int id) {
-        jotterArticleService.delete(id);
+        if (!jotterArticleService.existsById(id)) {
+            return ResultFactory.buildFailResult("对应笔记ID不存在");
+        }
+        jotterArticleService.deleteById(id);
         return ResultFactory.buildSuccessResult("删除成功");
     }
 }

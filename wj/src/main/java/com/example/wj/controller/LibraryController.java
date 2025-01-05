@@ -39,6 +39,9 @@ public class LibraryController {
     @PostMapping("/api/admin/content/books/delete")
     @ResponseBody
     public Result deleteBook(@RequestBody Book book) {
+        if (!bookService.existsById(book.getId())) {
+            return ResultFactory.buildFailResult("对应图书ID不存在");
+        }
         bookService.deleteById(book.getId());
         return ResultFactory.buildSuccessResult("删除成功");
     }
